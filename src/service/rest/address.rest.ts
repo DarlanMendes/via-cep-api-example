@@ -1,4 +1,4 @@
-import api from "../config"
+import api from "../rxjs"
 export class AddressRest{
     getAddressByIdCEP(cep:string){
        

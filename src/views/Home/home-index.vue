@@ -8,7 +8,7 @@
         <button @click="getCEP()">Buscar</button>
       </label>
     </form>
-
+  
     <card-address :address="address"/>
 
   </div>
@@ -18,6 +18,7 @@
 import {HomeService} from "./home.service";
 import { defineComponent } from "vue";
 import { ViaCEP } from "@/model/address.model";
+import { pipe } from "rxjs";
 export default defineComponent({
   data(){
     return{
@@ -31,8 +32,12 @@ export default defineComponent({
     }
   },
   methods:{
+    // getCEP(){
+    //   this.service.getAddressByIdCEP(this.cep).then((response:ViaCEP)=>this.address=response)
+    // }
     getCEP(){
-      this.service.getAddressByIdCEP(this.cep).then((response:ViaCEP)=>this.address=response)
+      this.service.address.pipe().subscribe({next:(response)=> this.address = response})
+      this.service.getAddressByIdCEP(this.cep)
     }
   }
 })
